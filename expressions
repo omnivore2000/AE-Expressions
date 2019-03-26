@@ -1,0 +1,91 @@
+3D BEAM
+------------------------------
+
+to
+thisComp.layer("Null 2").toComp([0,0,0]);
+from
+thisComp.layer("Null 1").toComp([0,0,0]);
+
+
+BOUNCE
+------------------------------
+
+amp = .1;
+freq = 2.0;
+decay = 2.0;
+
+n = 0;
+if (numKeys > 0){
+n = nearestKey(time).index;
+if (key(n).time > time){
+n--;
+}}
+
+if (n == 0){ t = 0;
+}else{
+t = time - key(n).time;
+}
+
+if (n > 0){
+v = velocityAtTime(key(n).time - thisComp.frameDuration/10);
+value + v*amp*Math.sin(freq*t*2*Math.PI)/Math.exp(decay*t);
+}else{value}
+
+
+CONSTANT POS BETWEEN TWO OBJECTS
+------------------------------
+
+x1 = thisComp.layer("Point 1").transform.position[0];
+y1 = thisComp.layer("Point 1").transform.position[1];
+x2 = thisComp.layer("Point 2").transform.position[0];
+y2 = thisComp.layer("Point 2").transform.position[1];
+xResults = (x1 + x2) / 2;
+yResults = (y1 + y2) / 2;
+[xResults, yResults];
+
+
+DELAY PARENT PROPERTY
+------------------------------
+
+- ROTATION
+
+delay = 5; //number of frames to delay
+d = delay*thisComp.frameDuration*(index - 1);
+thisComp.layer(1).rotation.valueAtTime(time - d)
+
+- POSITION
+
+delay = 5; //number of frames to delay
+d = delay*thisComp.frameDuration*(index - 1);
+thisComp.layer(1).position.valueAtTime(time - d)
+
+- FOLLOW THE NULL
+
+The solution to this is not exactly straight forward, but it's a useful concept that's worth investing some time to understand. 
+Here's how we do it. The key is that we use keyframes to animate the position of a 3D null to define a "template" for the path 
+that our other layers will follow. The duration of the null's animation isn't critical - I generally use something like four seconds 
+and name the null "template". You then add two sliders to the null - the first one (name it "offset") controls the separation 
+between layers and the other one (name it "travel") defines the percentage of travel along the path.
+
+You then apply this expression to as many 3D layers as you want in your "train":
+
+
+INDEPENDENT WIGGLE
+------------------------------
+- If you want to wiggle just x and leave y alone you could do it this way:
+
+freq = 7;
+amp = 50;
+w = wiggle(freq,amp); 
+[w[0],value[1]]
+
+- If you want to wiggle both x and y but with different parameters, you could do it like this:
+
+xFreq = 7;
+xAmp = 50;
+yFreq = 3;
+yAmp = 100;
+wX = wiggle(xFreq,xAmp); 
+wY = wiggle(yFreq,yAmp);
+[wX[0],wY[1]] 
+
