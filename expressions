@@ -72,6 +72,7 @@ You then apply this expression to as many 3D layers as you want in your "train":
 
 INDEPENDENT WIGGLE
 ------------------------------
+
 - If you want to wiggle just x and leave y alone you could do it this way:
 
 freq = 7;
@@ -89,3 +90,69 @@ wX = wiggle(xFreq,xAmp);
 wY = wiggle(yFreq,yAmp);
 [wX[0],wY[1]] 
 
+
+LOOK-AT
+------------------------------
+
+- goes on Rotation
+
+change “pointC” to the name of the layer you want to point at
+offset in degrees to correct orientation
+
+LookAt = "pointC"
+offset = 0
+diffx = position[0] - this_comp.layer(LookAt).position[0];
+diffy = position[1] - this_comp.layer(LookAt).position[1];
+if (diffx == 0) {
+diffx = 1 }
+sign = 1 + (-1 * (diffx / Math.abs(diffx))) * 90;
+radians_to_degrees(Math.atan(diffy/diffx)) + sign + offset
+
+- same, but converted to screen co-ord
+
+pointALayer = thisLayer;
+pointA = pointALayer.toComp(pointALayer.anchorPoint);
+
+//change “pointC” to the name of the layer you want to point at
+pointBLayer = thisComp.layer("pointC");
+pointB = pointBLayer.toComp(pointBLayer.anchorPoint);
+
+a = pointA[0] - pointB[0];
+b = pointA[1] - pointB[1];
+switcher = 0;
+if (b < 0) {switcher = -180};
+if (b == 0) {degree = 90} else {degree = -radiansToDegrees(Math.atan(a/b))}
+
+degree + value + switcher
+//add or subtract number at end for offset
+
+
+LOOP A MASK OR SHAPE KEYFRAME
+------------------------------
+
+- PING PONG
+
+if (numKeys >1 && time > key(numKeys).time){
+  t1 = key(1).time;
+  t2 = key(numKeys).time;
+  span = t2 - t1;
+  delta = time - t2;
+  seg = Math.floor(delta/span);
+  t = delta%span;
+  valueAtTime((seg%2) ? (t1 + t) : (t2 - t));
+}else
+  value
+
+- LOOP
+
+if (numKeys >1 && time > key(numKeys).time){
+  t1 = key(1).time;
+  t2 = key(numKeys).time;
+  span = t2 - t1;
+  delta = time - t2;
+  t = delta%span;
+  valueAtTime(t1 + t)
+}else
+  value
+  
+  
