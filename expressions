@@ -1,14 +1,15 @@
+------------------------------------------------------------
 3D BEAM
-------------------------------
+------------------------------------------------------------
 
 to
 thisComp.layer("Null 2").toComp([0,0,0]);
 from
 thisComp.layer("Null 1").toComp([0,0,0]);
 
-
+------------------------------------------------------------
 BOUNCE
-------------------------------
+------------------------------------------------------------
 
 amp = .1;
 freq = 2.0;
@@ -31,9 +32,9 @@ v = velocityAtTime(key(n).time - thisComp.frameDuration/10);
 value + v*amp*Math.sin(freq*t*2*Math.PI)/Math.exp(decay*t);
 }else{value}
 
-
+------------------------------------------------------------
 CONSTANT POS BETWEEN TWO OBJECTS
-------------------------------
+------------------------------------------------------------
 
 x1 = thisComp.layer("Point 1").transform.position[0];
 y1 = thisComp.layer("Point 1").transform.position[1];
@@ -43,9 +44,9 @@ xResults = (x1 + x2) / 2;
 yResults = (y1 + y2) / 2;
 [xResults, yResults];
 
-
+------------------------------------------------------------
 DELAY PARENT PROPERTY
-------------------------------
+------------------------------------------------------------
 
 - ROTATION
 
@@ -69,9 +70,9 @@ between layers and the other one (name it "travel") defines the percentage of tr
 
 You then apply this expression to as many 3D layers as you want in your "train":
 
-
+------------------------------------------------------------
 INDEPENDENT WIGGLE
-------------------------------
+------------------------------------------------------------
 
 - If you want to wiggle just x and leave y alone you could do it this way:
 
@@ -90,9 +91,9 @@ wX = wiggle(xFreq,xAmp);
 wY = wiggle(yFreq,yAmp);
 [wX[0],wY[1]] 
 
-
+------------------------------------------------------------
 LOOK-AT
-------------------------------
+------------------------------------------------------------
 
 - goes on Rotation
 
@@ -126,9 +127,9 @@ if (b == 0) {degree = 90} else {degree = -radiansToDegrees(Math.atan(a/b))}
 degree + value + switcher
 //add or subtract number at end for offset
 
-
+------------------------------------------------------------
 LOOP A MASK OR SHAPE KEYFRAME
-------------------------------
+------------------------------------------------------------
 
 - PING PONG
 
@@ -155,9 +156,9 @@ if (numKeys >1 && time > key(numKeys).time){
 }else
   value
   
-  
+------------------------------------------------------------
 OSCILLATIONS
-------------------------------
+------------------------------------------------------------
 
 -POSITION
 
@@ -190,9 +191,9 @@ amp = thisComp.layer("dotsOsci controller").effect("Amp")("Slider");
 s = amp*Math.sin(freq*time*8+0.1*Math.PI);
 [content("Ellipse Path 1").position[0],s];
 
-
+------------------------------------------------------------
 RANDOM SCALE OF SINGLE AXIS
-------------------------------
+------------------------------------------------------------
 
 frame = Math.round(time/thisComp.frameDuration);
 seed = Math.floor(frame/3);
@@ -200,17 +201,17 @@ seedRandom(seed,true);
 s = random(50,150);
 [value[0],s] 
 
-
+------------------------------------------------------------
 RANDOM (SOURCE)TEXT
-------------------------------
+------------------------------------------------------------
 
 - OVER TIME
 
 - LOCKED
 
-
+------------------------------------------------------------
 SAMPLEIMAGE; SCALE TO GRADIENT
-------------------------------
+------------------------------------------------------------
 
 sampleSize = [10,10];
 target = thisComp.layer("DRIVER");
@@ -221,9 +222,9 @@ hsl = rgbToHsl(rgb);
 
 //will work with a gradient effect on a solid (no precomp)
 
-
+------------------------------------------------------------
 SPRINGY FOLLOW
-------------------------------
+------------------------------------------------------------
 
 rapidity=6; //following speed
 inertia=0.4; //how dull the following will be (0-1)
@@ -243,9 +244,9 @@ while (i<=time)
  }
 pos2
 
-
+------------------------------------------------------------
 TEXT WITH SLIDER CONTROL
-------------------------------
+------------------------------------------------------------
 
 add slider control from expressions effects menu
 pick whip source text to slider control and add this code
@@ -278,9 +279,9 @@ for (fraction; fraction.length < places+2; fraction+="0");
 //
 sign + whole + "." + fraction.substring(2, places+2)
 
-
+------------------------------------------------------------
 TIME OFFSET NESTED COMP
-------------------------------
+------------------------------------------------------------
 
 for a nested comp (page 02) that is time offset in the parent comp (here called Animation test) and parented to a slider, 
 keyframes won’t respond without the correct time being applied.
@@ -288,9 +289,9 @@ keyframes won’t respond without the correct time being applied.
 C = comp(“parent comp”).layer(“this comp name in parent“);
 C.effect(“slider name“)(“Slider").valueAtTime(time+C.startTime)
 
-
+------------------------------------------------------------
 TIME REMAP TO SLIDER
-------------------------------
+------------------------------------------------------------
 
 . null named FaceControl
 . Slider named Mouth
@@ -298,3 +299,4 @@ TIME REMAP TO SLIDER
 
 sliderPos = thisComp.layer(“control layer“).effect(“slider name“)(“Slider"); 
 framesToTime((Math.round(sliderPos)))
+
