@@ -156,3 +156,145 @@ if (numKeys >1 && time > key(numKeys).time){
   value
   
   
+OSCILLATIONS
+------------------------------
+
+-POSITION
+
+freq = 1.0; //oscillations per second 
+amplitude =  90; 
+decay =  0;
+
+posCos = Math.abs(Math.cos(freq*time*2*Math.PI));
+y = amplitude*posCos/Math.exp(decay*time);
+position - [0,y]
+
+
+- ROTATION
+
+freq = 1;
+amp = 80;
+amp*Math.sin(freq*time*2*Math.PI);
+
+for position (which needs 2 properties)
+freq = 1;
+amp = 20;
+s = amp*Math.sin(freq*time*8+1.8*Math.PI);   
+[0,s];			
+//to offset time along x 		     
+//can pick whip objects own pos
+
+example
+freq = thisComp.layer("dotsOsci controller").effect("freq")("Slider");
+amp = thisComp.layer("dotsOsci controller").effect("Amp")("Slider");
+s = amp*Math.sin(freq*time*8+0.1*Math.PI);
+[content("Ellipse Path 1").position[0],s];
+
+
+RANDOM SCALE OF SINGLE AXIS
+------------------------------
+
+frame = Math.round(time/thisComp.frameDuration);
+seed = Math.floor(frame/3);
+seedRandom(seed,true);
+s = random(50,150);
+[value[0],s] 
+
+
+RANDOM (SOURCE)TEXT
+------------------------------
+
+- OVER TIME
+
+- LOCKED
+
+
+SAMPLEIMAGE; SCALE TO GRADIENT
+------------------------------
+
+sampleSize = [10,10];
+target = thisComp.layer("DRIVER");
+samplePos = target.fromComp(toComp(anchorPoint));
+rgb = target.sampleImage(samplePos, sampleSize, true, time);
+hsl = rgbToHsl(rgb);
+[hsl[2]*100,hsl[2]*100]
+
+//will work with a gradient effect on a solid (no precomp)
+
+
+SPRINGY FOLLOW
+------------------------------
+
+rapidity=6; //following speed
+inertia=0.4; //how dull the following will be (0-1)
+leader=thisComp.layer("leader")
+
+pos1=leader.position;
+pos2=leader.position;
+v=0; i=0;
+while (i<=time)
+ {
+  pos1=leader.position.valueAtTime(i);
+  delta=sub(pos1,pos2);
+  a=delta*rapidity*thisComp.frameDuration;
+  v=(v+a)*(1-inertia);
+  pos2 += v;
+  i += thisComp.frameDuration;
+ }
+pos2
+
+
+TEXT WITH SLIDER CONTROL
+------------------------------
+
+add slider control from expressions effects menu
+pick whip source text to slider control and add this code
+
+- limit to whole numbers only:
+
+Math.round(effect("Slider Control")("Slider")) + "%"
+
+- limit to decimal 2 places:
+
+val = effect("Slider Control")("Slider");
+places = 1;
+factor = Math.pow(10, places)
+Math.round(val*factor)/factor
+
+- limit to decimal 2 decimal places and force zeroes:
+
+places = 3; //number of decimal places desired
+val = effect("Slider Control")("Slider"); //sub in the name of your slider here
+//
+factor = Math.pow(0.1, places) ;
+sign = "";
+if (val < 0) sign = "-";
+//
+val = Math.abs(val);
+whole = Math.floor(val);
+fraction = "" + Math.round((val - whole)/factor)*factor;
+//
+for (fraction; fraction.length < places+2; fraction+="0");
+//
+sign + whole + "." + fraction.substring(2, places+2)
+
+
+TIME OFFSET NESTED COMP
+------------------------------
+
+for a nested comp (page 02) that is time offset in the parent comp (here called Animation test) and parented to a slider, 
+keyframes won’t respond without the correct time being applied.
+
+C = comp(“parent comp”).layer(“this comp name in parent“);
+C.effect(“slider name“)(“Slider").valueAtTime(time+C.startTime)
+
+
+TIME REMAP TO SLIDER
+------------------------------
+
+. null named FaceControl
+. Slider named Mouth
+. time remap desired layer, place this expression on time remap
+
+sliderPos = thisComp.layer(“control layer“).effect(“slider name“)(“Slider"); 
+framesToTime((Math.round(sliderPos)))
