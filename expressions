@@ -202,12 +202,14 @@ s = random(50,150);
 [value[0],s] 
 
 ------------------------------------------------------------
-RANDOM (SOURCE)TEXT
+RANDOM TEXT
 ------------------------------------------------------------
 
-- OVER TIME
+. applied to character offset in Animator 1
+seedRandom(1, false);
+random(200);
 
-- LOCKED
+make 'true' locks to time
 
 ------------------------------------------------------------
 SAMPLEIMAGE; SCALE TO GRADIENT
