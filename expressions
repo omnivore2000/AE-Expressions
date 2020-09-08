@@ -308,3 +308,15 @@ TIME REMAP TO SLIDER
 sliderPos = thisComp.layer(“control layer“).effect(“slider name“)(“Slider"); 
 framesToTime((Math.round(sliderPos)))
 
+------------------------------------------------------------
+FOLLOW PARENT WITH DELAY
+------------------------------------------------------------
+
+. from Dan Ebberts obviously
+
+delay = .5;
+try{
+parent.fromWorld(toWorld(anchorPoint,time-delay));
+}catch(err){
+value;
+}
