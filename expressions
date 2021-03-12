@@ -320,3 +320,25 @@ parent.fromWorld(toWorld(anchorPoint,time-delay));
 }catch(err){
 value;
 }
+
+------------------------------------------------------------
+SINE WAVE ON SHAPE LAYER
+------------------------------------------------------------
+
+. create shape layer (use oroboros to create a simple line)
+. create applicable sliders on the shape layer
+. apply to "path"
+
+S=effect("Speed")("Slider");
+A=effect("Amp")("Slider");
+F=effect("Freq")("Slider")/3.6;
+R=effect("Resolution")("Slider");
+W=effect("Width")("Slider")
+
+P=[];
+
+for (i=0;i<R;i++){
+P.push([W/R*i,Math.sin(time*S+i/(R/F))*A]);}
+
+
+createPath(P,[],[], false)
