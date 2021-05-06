@@ -342,3 +342,19 @@ P.push([W/R*i,Math.sin(time*S+i/(R/F))*A]);}
 
 
 createPath(P,[],[], false)
+
+
+------------------------------------------------------------
+BLINKING CURSOR WITH ADDED INPOINT TIME 
+------------------------------------------------------------
+
+L = masterProperty("Source Text").length;
+PT = time - thisLayer.inPoint;
+T = PT*10;
+F = Math.round(time % 1);
+
+Fl = "";
+if (F==1 | T>0) Fl = "|";
+if (T>=L) Fl = "";
+if (T>0) substr(0,T) + Fl
+else Fl
