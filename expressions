@@ -84,6 +84,16 @@ offset = (t.effect("offset")("Slider")/100)*(index -1);
 travel = linear(t.effect("travel")("Slider")/100,strt,end);
 t.position.valueAtTime(travel - offset)
 
+Adjust the offset slider to spread your layers out along the path 
+and adjust the travel slider so that the last layer just moves off the start position. 
+You then set a keyframe for the travel slider to set the initial position. 
+It's important to note that the travel slider does not start at zero (unless you want the layers to start out all bunched up). 
+You then animate the travel slider between its initial value and 100 (which will give you full travel along the path). 
+This animation can include slowing down and backing up and the layers will retain their relative spacing. 
+Note that the animation time of the travel slider doesn't need to be the same as the time of your original animation of the template null. 
+It's all based on percentages of travel so your final animation can be any length that you like. You might want to turn off the visibility 
+of the null because it can be a little distracting to see it traveling at a different speed along the same path as the layers.
+
 ------------------------------------------------------------
 INDEPENDENT WIGGLE
 ------------------------------------------------------------
