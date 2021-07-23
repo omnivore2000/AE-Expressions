@@ -76,6 +76,14 @@ between layers and the other one (name it "travel") defines the percentage of tr
 
 You then apply this expression to as many 3D layers as you want in your "train":
 
+strt = 0; //start time of template motion
+end = 4.0; //end time of template motion
+
+t = thisComp.layer("template");
+offset = (t.effect("offset")("Slider")/100)*(index -1);
+travel = linear(t.effect("travel")("Slider")/100,strt,end);
+t.position.valueAtTime(travel - offset)
+
 ------------------------------------------------------------
 INDEPENDENT WIGGLE
 ------------------------------------------------------------
