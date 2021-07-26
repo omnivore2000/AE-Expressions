@@ -363,6 +363,17 @@ createPath(P,[],[], false)
 
 
 ------------------------------------------------------------
+SINE WAVE ON TEXT LAYER
+------------------------------------------------------------
+
+on text / Animate / position
+. add an Expression selector
+. apply to Amount:
+Math.sin(time*5+textIndex)*100
+Math.sin(time*5+textIndex/4)*100 (control sine wave length)
+
+
+------------------------------------------------------------
 BLINKING CURSOR WITH ADDED INPOINT TIME 
 ------------------------------------------------------------
 
@@ -376,3 +387,20 @@ if (F==1 | T>0) Fl = "|";
 if (T>=L) Fl = "";
 if (T>0) substr(0,T) + Fl
 else Fl
+
+
+------------------------------------------------------------
+CYCLE THROUGH FONT WEIGHTS
+------------------------------------------------------------
+
+weights = [
+'Thin',
+'Light',
+'Regular',
+'Bold',
+'Heavy'
+];
+family = thisProperty.style.font;
+family = family.split('-');
+select = Math.floor(clamp(effect("Select")("Slider"), 0, weights.length - 1));;
+createStyle().setFont(family[0] + '-' + weights[select]);
