@@ -305,6 +305,14 @@ for (fraction; fraction.length < places+2; fraction+="0");
 //
 sign + whole + "." + fraction.substring(2, places+2)
 
+- add spaces (or indeed, commas) to spaces between numbers: thus 1 000 000
+
+val = effect("textNum")("Slider");
+function addCommas(x) {
+	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
+addCommas(val)
+
 ------------------------------------------------------------
 TIME OFFSET NESTED COMP
 ------------------------------------------------------------
