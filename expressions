@@ -412,3 +412,13 @@ family = thisProperty.style.font;
 family = family.split('-');
 select = Math.floor(clamp(effect("Select")("Slider"), 0, weights.length - 1));;
 createStyle().setFont(family[0] + '-' + weights[select]);
+
+
+------------------------------------------------------------
+ALIGN TO PATH
+------------------------------------------------------------
+
+myPath = thisComp.layer("path").mask("Mask 1").maskPath;
+animation = effect("travel")("Slider")/100;
+myPath.pointOnPath(animation);
+
