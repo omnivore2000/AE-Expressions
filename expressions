@@ -314,13 +314,13 @@ function addCommas(x) {
 addCommas(val)
 
 
-- better version 
+- better version, add commas and also limit to x places
 
 places = 0; //number of decimal places desired
 val = effect("textNum")("Slider");
 
 function addCommas(x) {
-	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 factor = Math.pow(0.1, places);
@@ -332,7 +332,7 @@ fraction = "" + Math.round((val - whole)/factor)*factor;
 //for (fraction; fraction.length < places+2; fraction+="0");
 for (fraction; fraction.length < places; fraction+=" ");
 
-addCommas(whole + " " + fraction.substring(2, places+2))
+addCommas(whole + "" + fraction.substring(2, places+2))
 
 
 
