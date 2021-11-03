@@ -313,6 +313,29 @@ function addCommas(x) {
 }
 addCommas(val)
 
+
+- better version 
+
+places = 0; //number of decimal places desired
+val = effect("textNum")("Slider");
+
+function addCommas(x) {
+	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
+
+factor = Math.pow(0.1, places);
+
+val = Math.abs(val);
+whole = Math.floor(val);
+fraction = "" + Math.round((val - whole)/factor)*factor;
+
+//for (fraction; fraction.length < places+2; fraction+="0");
+for (fraction; fraction.length < places; fraction+=" ");
+
+addCommas(whole + " " + fraction.substring(2, places+2))
+
+
+
 ------------------------------------------------------------
 TIME OFFSET NESTED COMP
 ------------------------------------------------------------
