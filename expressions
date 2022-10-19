@@ -184,7 +184,18 @@ if (numKeys >1 && time > key(numKeys).time){
 OSCILLATIONS
 ------------------------------------------------------------
 
--POSITION
+- SCALE (easy)
+
+freq = time*3;
+amp = 20;
+
+x = value[0];
+y = value[1]+Math.sin(freq)*amp;
+[x,y];
+
+
+
+-POSITION (with decay?)
 
 freq = 1.0; //oscillations per second 
 amplitude =  90; 
