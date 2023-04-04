@@ -5,6 +5,16 @@ in some places to aid in applying them.
 
 
 ------------------------------------------------------------
+Stroke Weight Scaling
+------------------------------------------------------------
+
+content("Stroke 1").strokeWidth / (thisComp.layer("Null 1").transform.scale[0])*100
+
+set an expression on the Stroke Width, then add a /
+then pick whip the x value of your parented null
+and finally add a *100
+
+------------------------------------------------------------
 3D BEAM
 ------------------------------------------------------------
 
