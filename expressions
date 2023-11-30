@@ -466,3 +466,11 @@ myPath = thisComp.layer("path").mask("Mask 1").maskPath;
 animation = effect("travel")("Slider")/100;
 myPath.pointOnPath(animation);
 
+
+------------------------------------------------------------
+POSITIVE WIGGLE
+------------------------------------------------------------
+
+var myWiggle = wiggle(1.6,3.6);
+var delta = myWiggle - value;
+value - Math.abs(delta)
