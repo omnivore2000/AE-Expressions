@@ -474,3 +474,10 @@ POSITIVE WIGGLE
 var myWiggle = wiggle(1.6,3.6);
 var delta = myWiggle - value;
 value - Math.abs(delta)
+
+------------
+CORRECT STRUCTURE 
+------------
+
+posterizeTime(6.25);
+time * 900
