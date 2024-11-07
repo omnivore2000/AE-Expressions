@@ -429,7 +429,7 @@ Math.sin(time*5+textIndex/4)*100 (control sine wave length)
 BLINKING CURSOR WITH ADDED INPOINT TIME 
 ------------------------------------------------------------
 
-L = masterProperty("Source Text").length;
+L = text.sourceText.length;
 PT = time - thisLayer.inPoint;
 T = PT*10;
 F = Math.round(time % 1);
